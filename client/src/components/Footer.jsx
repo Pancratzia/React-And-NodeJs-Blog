@@ -1,8 +1,13 @@
 import * as React from 'react';
+import Logo from '../imgs/logo.png';
 
 function Footer() {
     return (
-      <h1>Footer</h1>
+      <footer className='footer'>
+        <img src={Logo} alt="logo" />
+
+        <span>Made with ❤️ and React.js by Laura Ortega </span>
+      </footer>
     );
   }
   
