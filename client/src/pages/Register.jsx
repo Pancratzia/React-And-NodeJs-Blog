@@ -1,45 +1,66 @@
-import  React from "react";
+import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Register() {
+axios.defaults.baseURL = "http://localhost:8800/api";
 
+function Register() {
   const [inputs, setInputs] = useState({
     username: "",
     email: "",
-    password: "",  
+    password: "",
   });
 
+  const [err, setError] = useState(null);
+
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
-    setInputs(prev=> ({
+    setInputs((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
-  }
-  const handleSubmit = async e => {
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8800/api/auth/register", inputs);
-      console.log(res);
+      await axios.post("/auth/register", inputs);
+      navigate("/login");
     } catch (err) {
-      console.log(err);
+      setError(err.response.data);
     }
-
-  }
+  };
 
   return (
     <div className="auth">
       <h1>Register</h1>
       <form>
-
-        <input required type="email" placeholder="Email" name="email" onChange={handleChange} />
-        <input required type="text" placeholder="Username" name="username" onChange={handleChange} />
-        <input required type="password" placeholder="Password" name="password" onChange={handleChange} />
+        <input
+          required
+          type="email"
+          placeholder="Email"
+          name="email"
+          onChange={handleChange}
+        />
+        <input
+          required
+          type="text"
+          placeholder="Username"
+          name="username"
+          onChange={handleChange}
+        />
+        <input
+          required
+          type="password"
+          placeholder="Password"
+          name="password"
+          onChange={handleChange}
+        />
 
         <button onClick={handleSubmit}>Register</button>
 
-        <p>Error Message!</p>
+        {err && <p>{err}</p>}
 
         <span>
           Do you have an account? <Link to={"/login"}>Login</Link>
