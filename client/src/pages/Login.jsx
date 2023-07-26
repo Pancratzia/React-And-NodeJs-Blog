@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 
 axios.defaults.baseURL = "http://localhost:8800/api";
+axios.defaults.withCredentials = true;
 
 function Login() {
   const [inputs, setInputs] = useState({
@@ -49,7 +50,7 @@ function Login() {
         />
         <button onClick={handleSubmit}>Login</button>
 
-        {err && <p>{err.message}</p>}
+        {err && <p>{err}</p>}
 
         <span>
           Don't have an account? <Link to={"/register"}>Register</Link>
