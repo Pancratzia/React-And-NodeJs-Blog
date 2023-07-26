@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import Edit from "../imgs/edit.png";
-import Delete from "../imgs/delete.png";
+import Edit from "../img/edit.png";
+import Delete from "../img/delete.png";
 import Menu from "../components/menu";
 
 function Single() {
