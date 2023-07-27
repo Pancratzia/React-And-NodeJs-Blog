@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Edit from "../img/edit.png";
 import Delete from "../img/delete.png";
 import Menu from "../components/menu";
@@ -17,6 +17,7 @@ function Single() {
   const [post, setPost] = useState([]);
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const postId = location.pathname.split("/")[2];
 
@@ -33,6 +34,15 @@ function Single() {
     };
     fecthData();
   }, [postId]);
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/posts/${postId}`);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className="single">
@@ -55,7 +65,7 @@ function Single() {
                 <img src={Edit} alt="edit" />
               </Link>
 
-              <img src={Delete} alt="delete" />
+              <img onClick={handleDelete} src={Delete} alt="delete" />
             </div>
           )}
         </div>
