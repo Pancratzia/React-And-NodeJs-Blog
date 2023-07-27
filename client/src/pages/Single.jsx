@@ -61,7 +61,7 @@ function Single() {
 
           {currentUser?.username === post?.username && (
             <div className="edit">
-              <Link to="/write?id=1">
+              <Link to={`/write?id=${postId}`} state={{ post }}>
                 <img src={Edit} alt="edit" />
               </Link>
 
@@ -73,7 +73,7 @@ function Single() {
         {post?.description}
       </div>
       <div className="menu">
-        <Menu />
+        <Menu cat={post?.cat} />
       </div>
     </div>
   );
