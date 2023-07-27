@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:8800/api";
@@ -11,42 +11,19 @@ function Home() {
 
 const [posts, setPosts] = useState([]);
 
+const cat = useLocation().search;
+
 useEffect(() => {
   const fecthData = async () => {
     try{
-      const res = await axios.get("/posts");
+      const res = await axios.get(`/posts${cat}`);
       setPosts(res.data);
     } catch(err){
       console.log(err);
     }
   };
   fecthData();
-})
-
-  // const posts = [
-  //   {
-  //     id: 1,
-  //     title: "Post One Has a Really Really Really Really Big Title",
-  //     description:
-  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam facere exercitationem rerum expedita cum voluptate sed, sapiente quidem quae? Facilis tempora, sit tempore quasi non molestiae velit magni fugit ex, est eligendi, ea dolorum minima totam unde harum dolor recusandae.",
-  //     img: "https://images.pexels.com/photos/1121123/pexels-photo-1121123.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //   },
-  //   {
-  //     id: 2,
-  //     title:
-  //       "Post Two Has a Much Bigger Title Than The First Post in This List",
-  //     description:
-  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam facere exercitationem rerum expedita cum voluptate sed, sapiente quidem quae? Facilis tempora, sit tempore quasi non molestiae velit magni fugit ex, est eligendi, ea dolorum minima totam unde harum dolor recusandae.",
-  //     img: "https://images.pexels.com/photos/1309766/pexels-photo-1309766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Post Three Has a Tiny Title",
-  //     description:
-  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam facere exercitationem rerum expedita cum voluptate sed, sapiente quidem quae? Facilis tempora, sit tempore quasi non molestiae velit magni fugit ex, est eligendi, ea dolorum minima totam unde harum dolor recusandae.",
-  //     img: "https://images.pexels.com/photos/594233/pexels-photo-594233.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //   },
-  // ];
+}, [cat]);
 
   return (
     <div className="home">
