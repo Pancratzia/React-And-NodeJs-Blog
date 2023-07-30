@@ -31,14 +31,14 @@ useEffect(() => {
         {posts.map((post) => (
           <div className="post" key={post.id}>
             <div className="img">
-              <img src={post.img} alt={post.title} />
+            {post?.img && <img src={"/upload/" + post.img} alt={post.title} />}
             </div>
 
             <div className="content">
               <Link className="link" to={`/post/${post.id}`}>
                 <h2>{post.title}</h2>
               </Link>
-              <p>{post.description}</p>
+              <div dangerouslySetInnerHTML={{ __html: post.description }} />
 
               <Link to={`/post/${post.id}`}>
                 <button>Read More</button>

@@ -52,7 +52,7 @@ const Menu = ({ cat }) => {
       <h2>Other posts you may like</h2>
       {posts.map((post) => (
         <div className="post" key={post.id}>
-          <img src={post.img} alt={post.title} />
+          {post?.img && <img src={"/upload/" + post.img} alt={post.title} />}
           <h3>{post.title}</h3>
           <button>Read More</button>
         </div>
