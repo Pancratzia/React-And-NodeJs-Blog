@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 axios.defaults.baseURL = "http://localhost:8800/api";
 axios.defaults.withCredentials = true;
@@ -54,7 +55,9 @@ const Menu = ({ cat }) => {
         <div className="post" key={post.id}>
           {post?.img && <img src={"/upload/" + post.img} alt={post.title} />}
           <h3>{post.title}</h3>
-          <button>Read More</button>
+          <Link to={`/post/${post.id}`}>
+                <button>Read More</button>
+            </Link>
         </div>
       ))}
     </div>

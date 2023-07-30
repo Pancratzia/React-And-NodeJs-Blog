@@ -30,7 +30,13 @@ const Write = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    const imgUrl = await upload();
+
+    let imgUrl = state?.img || ""; // Usar la imagen actual en el estado si no se selecciona una nueva imagen
+
+    if (file) {
+      // Si se selecciona un archivo, cargar la imagen
+      imgUrl = await upload();
+    }
 
     try {
       state
@@ -38,13 +44,13 @@ const Write = () => {
             title,
             description: value,
             cat,
-            img: imgUrl, 
+            img: imgUrl,
           })
         : await axios.post(`/posts/`, {
             title,
             description: value,
             cat,
-            img: imgUrl, 
+            img: imgUrl,
             date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
           });
       navigate("/");
